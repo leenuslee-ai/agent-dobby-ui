@@ -1,0 +1,1 @@
+Run a back test on NVDA using RSI_MACD_TREND setup 100 days 
