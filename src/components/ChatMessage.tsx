@@ -14,7 +14,6 @@ export function ChatMessage({ message }: Props) {
     message.data?.responseType === 'BackTestResults' ||
     message.data?.responseType === 'PortfolioAccount' ||
     message.data?.responseType === 'PortfolioAccountList';
-
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
       {!isUser && (
@@ -22,7 +21,7 @@ export function ChatMessage({ message }: Props) {
           AI
         </div>
       )}
-      <div className={isWide ? 'w-full max-w-2xl' : 'max-w-[70%]'}>
+      <div className={isWide ? 'w-full' : 'max-w-[70%]'}>
         <div
           className={`px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap break-words ${
             isUser

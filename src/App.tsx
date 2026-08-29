@@ -6,7 +6,7 @@ import { ChatMessage } from './components/ChatMessage';
 import { ChatInput } from './components/ChatInput';
 import { TypingIndicator } from './components/TypingIndicator';
 
-function ChatView({ threadId, onLogout }: { threadId: string; onLogout: () => void }) {
+function ChatView({ threadId, username, onLogout }: { threadId: string; username: string; onLogout: () => void }) {
   const { messages, isLoading, error, sendMessage, clearMessages } = useChat(threadId);
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,7 @@ function ChatView({ threadId, onLogout }: { threadId: string; onLogout: () => vo
           </div>
           <div>
             <h1 className="text-sm font-semibold text-gray-900">Chat Assistant</h1>
-            <p className="text-xs text-gray-500 font-mono">Thread: {threadId}</p>
+            <p className="text-xs text-gray-500">@{username}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -43,7 +43,7 @@ function ChatView({ threadId, onLogout }: { threadId: string; onLogout: () => vo
       </header>
 
       <main className="flex-1 overflow-y-auto px-4 py-6">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center h-full pt-20 text-center">
               <div className="w-16 h-16 rounded-full bg-violet-100 flex items-center justify-center mb-4">
@@ -73,7 +73,7 @@ function ChatView({ threadId, onLogout }: { threadId: string; onLogout: () => vo
       </main>
 
       <footer className="bg-gray-50 border-t border-gray-200 px-4 py-4">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <ChatInput onSend={sendMessage} disabled={isLoading} />
           <p className="text-center text-xs text-gray-400 mt-2">
             Press Enter to send · Shift+Enter for new line
@@ -85,11 +85,11 @@ function ChatView({ threadId, onLogout }: { threadId: string; onLogout: () => vo
 }
 
 export default function App() {
-  const { threadId, isLoading, error, login, logout } = useAuth();
+  const { threadId, username, isLoading, error, login, logout } = useAuth();
 
   if (!threadId) {
     return <LoginForm onLogin={login} isLoading={isLoading} error={error} />;
   }
 
-  return <ChatView threadId={threadId} onLogout={logout} />;
+  return <ChatView threadId={threadId} username={username!} onLogout={logout} />;
 }

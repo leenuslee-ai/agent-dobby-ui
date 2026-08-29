@@ -4,6 +4,7 @@ const BASE_URL = import.meta.env.VITE_API_URL ?? '';
 
 export function useAuth() {
   const [threadId, setThreadId] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,6 +26,7 @@ export function useAuth() {
       const data = await response.json();
       if (!data.threadId) throw new Error('No threadId returned from login');
       setThreadId(data.threadId);
+      setUsername(username);
       return true;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
@@ -36,8 +38,9 @@ export function useAuth() {
 
   const logout = () => {
     setThreadId(null);
+    setUsername(null);
     setError(null);
   };
 
-  return { threadId, isLoading, error, login, logout };
+  return { threadId, username, isLoading, error, login, logout };
 }

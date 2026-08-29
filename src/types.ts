@@ -18,14 +18,18 @@ export interface CandlebarResponse {
 export interface BackTestSummary {
   ticker: string;
   setup: string;
-  days_tested: number;
+  period: string;
+  initial_equity: number;
+  final_equity: number;
+  total_return_pct: number;
   total_trades: number;
-  wins: number;
-  losses: number;
   win_rate_pct: number;
-  total_pnl_pct: number;
   avg_win_pct: number;
   avg_loss_pct: number;
+  best_trade_pct: number;
+  worst_trade_pct: number;
+  max_drawdown_pct: number;
+  sharpe_ratio: number;
 }
 
 export interface BackTestTrade {
@@ -34,6 +38,7 @@ export interface BackTestTrade {
   exit_date: string;
   exit_price: number;
   pnl_pct: number;
+  exit_reason: string;
   result: 'win' | 'loss';
 }
 
@@ -41,7 +46,7 @@ export interface BackTestResultsResponse {
   responseType: 'BackTestResults';
   summary: BackTestSummary;
   trades: BackTestTrade[];
-  candle_data: CandleBar[];
+  candle_data?: CandleBar[];
 }
 
 export interface PortfolioAccount {
