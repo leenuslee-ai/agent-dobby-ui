@@ -21,6 +21,12 @@ function parseResponse(data: Record<string, unknown>): { content: string; struct
         structured: r as unknown as StructuredResponse,
       };
     }
+    if (r.responseType === 'Recommendation') {
+      return {
+        content: `Recommendation for **${r.ticker as string}**: ${r.recommendation as string}`,
+        structured: r as unknown as StructuredResponse,
+      };
+    }
     if (r.responseType === 'PortfolioAccount') {
       return {
         content: `Portfolio account: **${r.display_name as string}**`,

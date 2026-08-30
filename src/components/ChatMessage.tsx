@@ -1,6 +1,7 @@
 import type { Message } from '../types';
 import { CandlebarChart } from './CandlebarChart';
 import { BackTestResultsCard } from './BackTestResultsCard';
+import { RecommendationCard } from './RecommendationCard';
 import { SingleAccountCard, PortfolioAccountListCard } from './PortfolioAccountCard';
 
 interface Props {
@@ -12,6 +13,7 @@ export function ChatMessage({ message }: Props) {
   const isWide =
     message.data?.responseType === 'Candlebar data' ||
     message.data?.responseType === 'BackTestResults' ||
+    message.data?.responseType === 'Recommendation' ||
     message.data?.responseType === 'PortfolioAccount' ||
     message.data?.responseType === 'PortfolioAccountList';
   return (
@@ -38,6 +40,10 @@ export function ChatMessage({ message }: Props) {
 
         {message.data?.responseType === 'BackTestResults' && (
           <BackTestResultsCard data={message.data} />
+        )}
+
+        {message.data?.responseType === 'Recommendation' && (
+          <RecommendationCard data={message.data} />
         )}
 
         {message.data?.responseType === 'PortfolioAccount' && (

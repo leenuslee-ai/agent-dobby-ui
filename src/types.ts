@@ -49,6 +49,24 @@ export interface BackTestResultsResponse {
   candle_data?: CandleBar[];
 }
 
+export interface RecommendationIndicators {
+  rsi?: number;
+  adx?: number;
+  bb_pct?: number;
+  above_sma50?: boolean;
+  above_sma200?: boolean;
+  ema20_rising?: boolean;
+  macd_cross_up?: boolean;
+}
+
+export interface RecommendationResponse {
+  responseType: 'Recommendation';
+  ticker: string;
+  recommendation: 'BUY' | 'SELL' | 'HOLD';
+  reason: string;
+  indicators: RecommendationIndicators;
+}
+
 export interface PortfolioAccount {
   id: string;
   broker: string;
@@ -79,7 +97,7 @@ export interface PortfolioAccountListResponse {
   total: number;
 }
 
-export type StructuredResponse = CandlebarResponse | BackTestResultsResponse | PortfolioAccountResponse | PortfolioAccountListResponse;
+export type StructuredResponse = CandlebarResponse | BackTestResultsResponse | RecommendationResponse | PortfolioAccountResponse | PortfolioAccountListResponse;
 
 export interface Message {
   id: string;
