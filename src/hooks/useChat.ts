@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { Message, StructuredResponse, PortfolioAccountListResponse } from '../types';
+import type { Message, StructuredResponse, PortfolioAccountListResponse, TraceStep } from '../types';
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? '';
 
@@ -87,6 +87,7 @@ export function useChat(threadId: string) {
 
       const data = await response.json() as Record<string, unknown>;
       const { content: text, structured } = parseResponse(data);
+      const trace = Array.isArray(data.trace) ? (data.trace as TraceStep[]) : undefined;
 
       const assistantMessage: Message = {
         id: crypto.randomUUID(),
@@ -94,6 +95,7 @@ export function useChat(threadId: string) {
         content: text,
         timestamp: new Date(),
         data: structured,
+        trace,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);

@@ -99,10 +99,17 @@ export interface PortfolioAccountListResponse {
 
 export type StructuredResponse = CandlebarResponse | BackTestResultsResponse | RecommendationResponse | PortfolioAccountResponse | PortfolioAccountListResponse;
 
+export type TraceStep =
+  | { step: 'user';        content: string }
+  | { step: 'assistant';   content: string }
+  | { step: 'tool_call';   tool: string; args: Record<string, unknown> }
+  | { step: 'tool_result'; tool: string; content: unknown };
+
 export interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
   data?: StructuredResponse;
+  trace?: TraceStep[];
 }
