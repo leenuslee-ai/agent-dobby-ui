@@ -1,0 +1,93 @@
+show me the setups
+
+{
+  "responseType": "TradeSetupList",
+  "count": 8,
+  "setups": [
+    {
+      "id": "33260f16-c393-4bb6-a220-5e4de9f09ac9",
+      "name": "RSI_MACD_TREND",
+      "description": "Enter when RSI is oversold and MACD crosses up above its signal line, confirming an uptrend via SMA-50 and a trending market via ADX > 20.",
+      "created_at": "2026-08-29T12:35:51.086739"
+    },
+    {
+      "id": "df0c213a-002a-4911-a3a1-9f07b82e3dfc",
+      "name": "EMA20_PB",
+      "description": "In a clear uptrend, wait for price to pull back and touch the rising 20 EMA, then enter on a hammer or bullish engulfing candle at the line.",
+      "created_at": "2026-08-29T12:35:51.087521"
+    },
+    {
+      "id": "3f3b0f6e-2c3d-4d50-8387-d9e1ff6ec155",
+      "name": "RSI14_Below30",
+      "description": "RSI_Below30",
+      "created_at": "2026-08-29T14:17:45.447472"
+    },
+    {
+      "id": "e8d0ca66-52e8-4cd9-aff7-f806072d59ce",
+      "name": "RSI_PRICE_ADX",
+      "description": "Buy when RSI is oversold below 35, price is above 50-day SMA, and ADX shows trend strength above 20, with exit when RSI crosses above 70.",
+      "created_at": "2026-08-29T18:01:22.297298"
+    },
+    {
+      "id": "64def0f8-8b8b-45ae-9756-db5facad42f5",
+      "name": "MA-Trend-Follower",
+      "description": "Trend-continuation strategy using SMA-50 bullish structure, EMA-8/21 crossover, and positive close on daily chart with 2.5:1 risk-reward exit.",
+      "created_at": "2026-08-31T23:19:39.876875"
+    },
+    {
+      "id": "2ad0d41c-36c6-4b09-abf9-c1fab9be061c",
+      "name": "Daily-RSI-2",
+      "description": "Ultra-fast 2-period RSI momentum strategy that enters on extreme oversold conditions (RSI-2 < 10) within a macro uptrend (price > SMA-200), with exits on RSI-2 > 70 or 2.0×ATR stop loss.",
+      "created_at": "2026-08-31T23:37:04.074764"
+    },
+    {
+      "id": "e8577c92-fe49-408d-90ea-93080595decd",
+      "name": "Daily-RSI-14",
+      "description": "A simple swing setup using RSI 14-day window with oversold entry and overbought exit.",
+      "created_at": "2026-09-02T16:22:04.840436"
+    },
+    {
+      "id": "e4f5b642-3257-48c9-ab55-dace3cc448c2",
+      "name": "EMA8_21_PB",
+      "description": "Pullback setup using EMA-8/21 crossover with ADX confirmation, exiting on EMA-21 breach or RSI overbought.",
+      "created_at": "2026-09-02T19:59:04.046250"
+    }
+  ]
+}
+
+Show the full details of the setup Daily-RSI-14
+
+{
+  "responseType": "TradeSetup",
+  "status": "found",
+  "id": "e8577c92-fe49-408d-90ea-93080595decd",
+  "name": "Daily-RSI-14",
+  "description": "A simple swing setup using RSI 14-day window with oversold entry and overbought exit.",
+  "definition": {
+    "entry_conditions": [
+      {
+        "label": "RSI(14) oversold",
+        "type": "rsi_below",
+        "params": {
+          "value": 30
+        }
+      }
+    ],
+    "exit_conditions": [
+      {
+        "label": "RSI(14) overbought",
+        "type": "rsi_above",
+        "params": {
+          "value": 70
+        }
+      }
+    ],
+    "stop_loss_pct": 0.04,
+    "take_profit_pct": null,
+    "position_type": "equity_pct",
+    "position_value": 0.02
+  },
+  "created_at": "2026-09-02T16:22:04.840436"
+}
+
+
