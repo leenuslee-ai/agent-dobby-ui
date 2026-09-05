@@ -22,7 +22,7 @@ function ChatView({ threadId, username, onLogout }: { threadId: string; username
             AI
           </div>
           <div>
-            <h1 className="text-sm font-semibold text-gray-900">Chat Assistant</h1>
+            <h1 className="text-sm font-semibold text-gray-900">Agent Dobby</h1>
             <p className="text-xs text-gray-500">@{username}</p>
           </div>
         </div>

@@ -42,7 +42,7 @@ export function ChatInput({ onSend, disabled }: Props) {
         onKeyDown={handleKeyDown}
         onInput={handleInput}
         placeholder="Type a message… (Shift+Enter for new line)"
-        rows={1}
+        rows={2}
         disabled={disabled}
         className="flex-1 resize-none bg-transparent text-sm text-gray-800 placeholder-gray-400 outline-none leading-relaxed"
         style={{ maxHeight: 160 }}

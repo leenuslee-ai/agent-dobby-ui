@@ -49,6 +49,37 @@ export interface BackTestResultsResponse {
   candle_data?: CandleBar[];
 }
 
+export interface Holding {
+  id: string;
+  account_id: string;
+  ticker: string;
+  setup_name: string;
+  opening_transaction_date: string;
+  open_qty: number;
+  opening_transaction_type: 'BUY' | 'SELL';
+  open_price: number;
+  pending_qty: number;
+  current_price: number;
+  current_open_value: number;
+  closed_value: number;
+}
+
+export interface HoldingListResponse {
+  responseType: 'HoldingList';
+  account_id: string;
+  account_name: string;
+  count: number;
+  holdings: Holding[];
+}
+
+export interface OpenHoldingListResponse {
+  responseType: 'OpenHoldingList';
+  account_id: string;
+  account_name: string;
+  count: number;
+  holdings: Holding[];
+}
+
 export interface RecommendationIndicators {
   rsi?: number;
   adx?: number;
@@ -97,7 +128,7 @@ export interface PortfolioAccountListResponse {
   total: number;
 }
 
-export type StructuredResponse = CandlebarResponse | BackTestResultsResponse | RecommendationResponse | PortfolioAccountResponse | PortfolioAccountListResponse;
+export type StructuredResponse = CandlebarResponse | BackTestResultsResponse | RecommendationResponse | HoldingListResponse | OpenHoldingListResponse | PortfolioAccountResponse | PortfolioAccountListResponse;
 
 export type TraceStep =
   | { step: 'user';        content: string }
