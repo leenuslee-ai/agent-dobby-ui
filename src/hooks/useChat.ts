@@ -21,6 +21,18 @@ function parseResponse(data: Record<string, unknown>): { content: string; struct
         structured: r as unknown as StructuredResponse,
       };
     }
+    if (r.responseType === 'TradeList') {
+      return {
+        content: '',
+        structured: r as unknown as StructuredResponse,
+      };
+    }
+    if (r.responseType === 'PMAgentRunList') {
+      return {
+        content: '',
+        structured: r as unknown as StructuredResponse,
+      };
+    }
     if (r.responseType === 'HoldingList' || r.responseType === 'OpenHoldingList') {
       return {
         content: '',

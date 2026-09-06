@@ -1,9 +1,12 @@
 import type { Message } from '../types';
+import babyDobby from '../assets/baby-dobby.jpeg';
 import { CandlebarChart } from './CandlebarChart';
 import { BackTestResultsCard } from './BackTestResultsCard';
 import { RecommendationCard } from './RecommendationCard';
 import { SingleAccountCard, PortfolioAccountListCard } from './PortfolioAccountCard';
 import { HoldingListCard } from './HoldingListCard';
+import { PMAgentRunListCard } from './PMAgentRunListCard';
+import { TradeListCard } from './TradeListCard';
 import { TracePanel } from './TracePanel';
 
 interface Props {
@@ -16,6 +19,8 @@ export function ChatMessage({ message }: Props) {
     message.data?.responseType === 'Candlebar data' ||
     message.data?.responseType === 'BackTestResults' ||
     message.data?.responseType === 'Recommendation' ||
+    message.data?.responseType === 'TradeList' ||
+    message.data?.responseType === 'PMAgentRunList' ||
     message.data?.responseType === 'HoldingList' ||
     message.data?.responseType === 'OpenHoldingList' ||
     message.data?.responseType === 'PortfolioAccount' ||
@@ -26,9 +31,7 @@ export function ChatMessage({ message }: Props) {
       {/* AI avatar + trace button stacked on the left */}
       {!isUser && (
         <div className="flex flex-col items-center gap-1 mr-2 shrink-0">
-          <div className="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-sm font-semibold">
-            AI
-          </div>
+          <img src={babyDobby} alt="Dobby" className="w-8 h-8 rounded-full object-cover" />
           {message.trace && message.trace.length > 0 && (
             <TracePanel trace={message.trace} />
           )}
@@ -58,6 +61,14 @@ export function ChatMessage({ message }: Props) {
 
         {message.data?.responseType === 'Recommendation' && (
           <RecommendationCard data={message.data} />
+        )}
+
+        {message.data?.responseType === 'TradeList' && (
+          <TradeListCard data={message.data} />
+        )}
+
+        {message.data?.responseType === 'PMAgentRunList' && (
+          <PMAgentRunListCard data={message.data} />
         )}
 
         {message.data?.responseType === 'HoldingList' && (

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import babyDobby from './assets/baby-dobby.jpeg';
 import { useAuth } from './hooks/useAuth';
 import { useChat } from './hooks/useChat';
 import { LoginForm } from './components/LoginForm';
@@ -18,9 +19,7 @@ function ChatView({ threadId, username, onLogout }: { threadId: string; username
     <div className="flex flex-col h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-violet-600 flex items-center justify-center text-white font-bold text-sm">
-            AI
-          </div>
+          <img src={babyDobby} alt="Dobby" className="w-9 h-9 rounded-full object-cover" />
           <div>
             <h1 className="text-sm font-semibold text-gray-900">Agent Dobby</h1>
             <p className="text-xs text-gray-500">@{username}</p>

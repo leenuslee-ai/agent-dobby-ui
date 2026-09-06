@@ -49,6 +49,110 @@ export interface BackTestResultsResponse {
   candle_data?: CandleBar[];
 }
 
+export interface HoldingEval {
+  holding_id: string;
+  ticker: string;
+  setup_name: string;
+  pending_qty: number;
+  open_price: number;
+  current_price: number;
+  pnl_pct: number;
+  decision: 'BUY' | 'SELL' | 'HOLD' | 'WAIT';
+  conditions: Record<string, string>;
+  reason: string;
+  evaluated_at: string;
+  order?: {
+    order_id: string;
+    status: string;
+    filled_qty: number;
+    filled_avg_price: number;
+    filled_at: string;
+  };
+}
+
+export interface ResearchResult {
+  ticker: string;
+  recommendation: string;
+  reason: string;
+}
+
+export interface BuyCandidate {
+  ticker: string;
+  setup_name: string;
+  decision: string;
+  risk_percent: number;
+  conditions: Record<string, string>;
+  reason: string;
+  evaluated_at: string;
+}
+
+export interface BuyExecuted {
+  ticker: string;
+  setup_name: string;
+  order: {
+    order_id: string;
+    status: string;
+    filled_qty: number;
+    filled_avg_price: number;
+    filled_at: string;
+  };
+}
+
+export interface PMAgentRunSummaryJson {
+  holdings_eval: HoldingEval[];
+  research_results: ResearchResult[];
+  buy_candidates: BuyCandidate[];
+  buys_executed: BuyExecuted[];
+  elapsed_seconds: number;
+  errors: unknown[];
+}
+
+export interface PMAgentRun {
+  id: string;
+  account_id: string;
+  run_at: string;
+  sim_date: string;
+  elapsed_seconds: number;
+  holdings_evaluated: number;
+  sells_executed: number;
+  buys_executed: number;
+  open_holdings_count: number;
+  summary_text: string;
+  summary_json: PMAgentRunSummaryJson;
+  errors: unknown | null;
+  created_at: string;
+}
+
+export interface Trade {
+  id: string;
+  account_id: string;
+  ticker: string;
+  setup_name: string;
+  side: 'BUY' | 'SELL';
+  open_close: string;
+  qty: number;
+  price: number;
+  status: string;
+  filled_at: string;
+  broker_order_id: string;
+}
+
+export interface TradeListResponse {
+  responseType: 'TradeList';
+  account_id: string;
+  account_name: string;
+  count: number;
+  trades: Trade[];
+}
+
+export interface PMAgentRunListResponse {
+  responseType: 'PMAgentRunList';
+  account_id: string;
+  account_name?: string;
+  count: number;
+  runs: PMAgentRun[];
+}
+
 export interface Holding {
   id: string;
   account_id: string;
@@ -128,7 +232,7 @@ export interface PortfolioAccountListResponse {
   total: number;
 }
 
-export type StructuredResponse = CandlebarResponse | BackTestResultsResponse | RecommendationResponse | HoldingListResponse | OpenHoldingListResponse | PortfolioAccountResponse | PortfolioAccountListResponse;
+export type StructuredResponse = CandlebarResponse | BackTestResultsResponse | RecommendationResponse | HoldingListResponse | OpenHoldingListResponse | PMAgentRunListResponse | TradeListResponse | PortfolioAccountResponse | PortfolioAccountListResponse;
 
 export type TraceStep =
   | { step: 'user';        content: string }

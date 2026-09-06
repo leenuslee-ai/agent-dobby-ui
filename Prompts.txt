@@ -69,3 +69,254 @@ One of the 'whatnext' response types is OpenHoldingList like
 -- Both HoldingList and OpenHoldingList response UI include a title bar and a table inside. The title bar still displays the id instead of the account name
     The table title shows 'Current Holdings' and account name -- instead let's remove that text -- leave it blank for now and I will come out with a different title later 
     -- done
+
+
+PMAgentRunList returns the folowing kind of result in JSON format ( let's add a nice UI) :
+{
+  "responseType": "PMAgentRunList",
+  "account_id": "ed36fd4a-b742-46c4-9733-b6b8f99f96db",
+  "count": 5,
+  "runs": [
+  {
+      "id": "d9b48f0a-d877-4c2f-8177-da6412c2d6fa",
+      "account_id": "ed36fd4a-b742-46c4-9733-b6b8f99f96db",
+      "run_at": "2026-09-05T15:39:12.696950+00:00",
+      "sim_date": "2026-09-08",
+      "elapsed_seconds": 115.9,
+      "holdings_evaluated": 7,
+      "sells_executed": 3,
+      "buys_executed": 2,
+      "open_holdings_count": 4,
+      "summary_text": "PortfolioManagerAgent Run\n  Run at           : 2026-09-05 15:39:12 UTC  (account: ...ed36fd4a)\n  Simulation date  : 2026-09-08\n  Elapsed          : 115.9s\n\nResearch\n    MINI     BUY    Mock stock — research skipped.\n    OWALA    BUY    Mock stock — research skipped.\n    DOBBY    BUY    Mock stock — research skipped.\n    LUCAS    BUY    Mock stock — research skipped.\n    PILLOW   BUY    Mock stock — research skipped.\n    AMZN     BUY    AMZN recently achieved a record $3 trillion market cap following stron\n    MSFT     WAIT   {{\n  \"recommendation\": \"BUY\",\n  \"reason\": \"Recent news indicates stron\n    AAPL     WAIT   \n    GOOGL    BUY    Strong momentum evidenced by Berkshire Hathaway's $13.5B purchase and \n    NVDA     HOLD   NVDA is near its 52-week high with strong AI fundamentals, but recent \n    TQQQ     WAIT   {{\n  \"recommendation\": \"HOLD\",\n  \"reason\": \"Unable to retrieve current\n\nSells executed (3)\n    SELL DOBBY 16.7331 shares @ $103.24  PnL: -4.4%  (SELL based on technical conditions.)\n    SELL DOBBY 16.4567 shares @ $103.24  PnL: -4.2%  (SELL based on technical conditions.)\n    SELL LUCAS 16.8255 shares @ $96.77  PnL: -4.4%  (SELL based on technical conditions.)\n\nBuys executed (2)\n    BUY  DOBBY — setup: Daily-RSI-14  order: filled\n    BUY  LUCAS — setup: Daily-RSI-14  order: filled\n\n
+      Open holdings after run: 4",
+
+      "summary_json": {
+        "account_id": "ed36fd4a-b742-46c4-9733-b6b8f99f96db",
+        "run_at": "2026-09-05T15:39:12.696950+00:00",
+        "holdings_eval": [
+          {
+            "holding_id": "d27be78c-cb9b-4d22-8b48-89d7bb6d27b3",
+            "ticker": "MINI",
+            "setup_name": "Daily-RSI-14",
+            "pending_qty": 55.0098,
+            "open_price": 35.63,
+            "current_price": 38.19,
+            "pnl_pct": 7.18,
+            "decision": "HOLD",
+            "conditions": {
+              "RSI(14) overbought": "NOT MET"
+            },
+            "reason": "HOLD based on technical conditions.",
+            "evaluated_at": "2026-09-08"
+          },
+          {
+            "holding_id": "65cc80c7-9b50-429d-8112-f9c702453760",
+            "ticker": "DOBBY",
+            "setup_name": "Daily-RSI-14",
+            "pending_qty": 16.7331,
+            "open_price": 108.04,
+            "current_price": 103.24,
+            "pnl_pct": -4.44,
+            "decision": "SELL",
+            "conditions": {
+              "RSI(14) overbought": "NOT MET",
+              "Stop loss": "MET"
+            },
+            "reason": "SELL based on technical conditions.",
+            "evaluated_at": "2026-09-08",
+            "order": {
+              "order_id": "mock-2cca130d-82b1-48fd-a145-5ae4dcc9a094",
+              "status": "filled",
+              "filled_qty": 16.7331,
+              "filled_avg_price": 103.24,
+              "filled_at": "2026-09-08T00:00:00+00:00"
+            },
+            "trade_saved": {
+              "transaction_id": "6302269f-503a-4bf2-a3b8-18b3892c0b0b",
+              "open_close": "Close",
+              "ticker": "DOBBY",
+              "side": "SELL",
+              "qty": 16.7331,
+              "price": 103.24,
+              "close_ref_ids": [
+                "6de565ee-0005-415e-8f84-563f12c43236"
+              ]
+            }
+          },
+        ],
+        "research_results": [
+          {
+            "ticker": "MINI",
+            "recommendation": "BUY",
+            "reason": "Mock stock — research skipped."
+          },
+          {
+            "recommendation": "BUY",
+            "reason": "AMZN recently achieved a record $3 trillion market cap following strong Q2 earnings and is being classified as a 'genius buy' for AI exposure, indicating robust growth potential despite being slightly below its 52-week high.",
+            "ticker": "AMZN"
+          },
+          {
+            "recommendation": "WAIT",
+            "reason": "{{\n  \"recommendation\": \"BUY\",\n  \"reason\": \"Recent news indicates strong financial health with large cash returns, positive JPMorgan outlook on cloud growth, and competitive advantages in AI chips and quantum computing. The stock is currently trading at $499.70, which is about 12% below its 52-week high, presenting a potentially attractive entry point for investors.\"\n}}",
+            "ticker": "MSFT"
+          },
+        ],
+        "buy_candidates": [
+          {
+            "ticker": "DOBBY",
+            "setup_name": "Daily-RSI-14",
+            "decision": "BUY",
+            "risk_percent": 2,
+            "conditions": {
+              "RSI(14) oversold": "MET"
+            },
+            "reason": "",
+            "evaluated_at": "2026-09-08"
+          },
+          {
+            "ticker": "LUCAS",
+            "setup_name": "Daily-RSI-14",
+            "decision": "BUY",
+            "risk_percent": 2,
+            "conditions": {
+              "RSI(14) oversold": "MET"
+            },
+            "reason": "",
+            "evaluated_at": "2026-09-08"
+          }
+        ],
+        "buys_executed": [
+          {
+            "ticker": "DOBBY",
+            "setup_name": "Daily-RSI-14",
+            "order": {
+              "order_id": "mock-9ae8d48e-4a2e-48e9-a742-6829880cd9da",
+              "status": "filled",
+              "filled_qty": 17.8157,
+              "filled_avg_price": 103.24,
+              "filled_at": "2026-09-08T00:00:00+00:00"
+            },
+            "trade": {
+              "transaction_id": "0fe5dc27-cc30-4769-ba80-32fd3ecdefca",
+              "open_close": "Open",
+              "ticker": "DOBBY",
+              "side": "BUY",
+              "qty": 17.8157,
+              "price": 103.24
+            }
+          },
+          {
+            "ticker": "LUCAS",
+            "setup_name": "Daily-RSI-14",
+            "order": {
+              "order_id": "mock-e6a47e2d-8ceb-4072-9a1b-a6a8c08f71a9",
+              "status": "filled",
+              "filled_qty": 18.6267,
+              "filled_avg_price": 96.77,
+              "filled_at": "2026-09-08T00:00:00+00:00"
+            },
+            "trade": {
+              "transaction_id": "7540ea02-b577-4490-bd2d-835aad50058e",
+              "open_close": "Open",
+              "ticker": "LUCAS",
+              "side": "BUY",
+              "qty": 18.6267,
+              "price": 96.77
+            }
+          }
+        ],
+        "open_holdings": [
+          {
+            "id": "d27be78c-cb9b-4d22-8b48-89d7bb6d27b3",
+            "account_id": "ed36fd4a-b742-46c4-9733-b6b8f99f96db",
+            "ticker": "MINI",
+            "setup_name": "Daily-RSI-14",
+            "opening_transaction_date": "2026-08-31T00:00:00+00:00",
+            "open_qty": 55.0098,
+            "opening_transaction_type": "BUY",
+            "open_price": 35.63,
+            "pending_qty": 55.0098,
+            "current_price": 35.63,
+            "current_open_value": 1959.999174,
+            "closed_value": 0
+          },
+          {
+            "id": "bd750f17-924b-4ce7-8629-e501337d29dc",
+            "account_id": "ed36fd4a-b742-46c4-9733-b6b8f99f96db",
+            "ticker": "DOBBY",
+            "setup_name": "Daily-RSI-14",
+            "opening_transaction_date": "2026-09-04T00:00:00+00:00",
+            "open_qty": 16.2718,
+            "opening_transaction_type": "BUY",
+            "open_price": 106.8,
+            "pending_qty": 16.2718,
+            "current_price": 106.8,
+            "current_open_value": 1737.82824,
+            "closed_value": 0
+          },
+        ],
+        "errors": [],
+        "elapsed_seconds": 115.9
+      },
+      "errors": null,
+      "created_at": "2026-09-05T15:41:08.578925+00:00"
+    },
+  ]
+}
+
+
+So the UI should have the following sections for each run :
+  Summary : in a nice compact format
+    It should include the following details :  Account_Name (pretend it is there in reponse -- it will be available soon), run_at,  "elapsed_seconds": "holdings_evaluated":  "sells_executed":
+      "buys_executed":
+      "open_holdings_count":
+      "summary_text"
+
+  Open Holding Evaluations in a simple list format : ( data is available in the summary_json.holdings_eval array). The following details need to be available : ticker,setup_name, decision, reason 
+
+  News Based Research Results : ( data in summary_json.research_results array) - Incorporate all the details
+
+  Buy Candidates After Tech Evaluation : (data in summary_json.buy_candidates) -  include ticker, setup_name, conditions and the corresponding qty and price from summary_json.buys_executed array.
+  -- done
+
+--- whatnext response returns a TradeList response as a JSON : 
+{
+  "responseType": "TradeList",
+  "account_id": "ed36fd4a-b742-46c4-9733-b6b8f99f96db",
+  "account_name": "alpaca PaperAcct1",
+  "count": 30,
+  "trades": [
+    {
+      "id": "dbf493bd-891d-417a-8eb0-6f45d1d20c10",
+      "account_id": "ed36fd4a-b742-46c4-9733-b6b8f99f96db",
+      "ticker": "DOBBY",
+      "setup_name": "Daily-RSI-14",
+      "side": "BUY",
+      "open_close": "Open",
+      "qty": 17.9856,
+      "price": 111.2,
+      "status": "filled",
+      "filled_at": "2026-08-31T00:00:00+00:00",
+      "broker_order_id": "mock-ec595475-0c0f-4bd0-89b5-074d064d576f"
+    },
+    {
+      "id": "781aec0b-4eb5-44cb-a9a0-4ef6ff8b083e",
+      "account_id": "ed36fd4a-b742-46c4-9733-b6b8f99f96db",
+      "ticker": "MINI",
+      "setup_name": "Daily-RSI-14",
+      "side": "BUY",
+      "open_close": "Open",
+      "qty": 55.0098,
+      "price": 35.63,
+      "status": "filled",
+      "filled_at": "2026-08-31T00:00:00+00:00",
+      "broker_order_id": "mock-2968d96c-f64f-46a2-9713-cb206b1134b5"
+    },
+  ],
+  "already_formatted": true
+
+}
+
+Let's create a card to display this as a table view.
+Title needs to include Account Name and a date range
+Include the folowing columns : Ticker, Setup, Date (filled_at), Side, Qty, Price, 
